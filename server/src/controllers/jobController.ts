@@ -43,7 +43,7 @@ const createJob = async (req: Request, res: Response, next: NextFunction) => {
             throw Error("User not authorized");
         }
 
-        res.status(201).send("Job posted successfully");
+        res.status(201).json(job);
     } catch (err) {
         next(err);
     }

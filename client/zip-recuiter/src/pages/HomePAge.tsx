@@ -5,9 +5,11 @@ import homeBg from "../assets/imgs/homeBg.jpg";
 
 const HomePage = () => {
     return (
-        <div style={{backgroundImage: `linear-gradient(rgba(248, 250, 252, 1), rgba(248, 250, 252, 0.95)), url(${homeBg})`}} className=" h-screen flex flex-col justify-center items-center bg-center bg-cover">
+        <div className="  h-screen flex flex-col">
             <NavBar />
-            <SearchBar />
+            <div style={{backgroundImage: `linear-gradient(rgba(248, 250, 252, 1), rgba(248, 250, 252, 0.95)), url(${homeBg})`}} className="flex-1 flex flex-col justify-center items-center bg-center bg-cover">
+                <SearchBar />
+            </div>
         </div>
     )
 }

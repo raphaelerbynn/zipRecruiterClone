@@ -16,13 +16,19 @@ const RecruiterOptions = () => {
 
     }
 
-    function toggleMenu() {
+    const toggleMenu = () => {
         setShowMenu(!showMenu);
     }
 
+    const handleToPost = () => {
+        navigate("/post");
+    }
+
+
+
     return (
         <>
-            <button className=" outline outline-1 outline-gray-300 px-4 py-1 rounded-full hover:bg-gray-100 text-emerald-700 font-medium">Post a Job</button>
+            <button onClick={handleToPost} className=" outline outline-1 outline-gray-300 px-4 py-1 rounded-full hover:bg-gray-100 text-emerald-700 font-medium">Post a Job</button>
             <div>
                 <button onClick={toggleMenu} className=" hover:outline hover:outline-8 hover:outline-slate-200 w-7 h-7 rounded-full outline outline-1 outline-slate-300"> 
                     ---

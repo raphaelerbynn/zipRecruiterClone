@@ -1,28 +1,30 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Link, useNavigate } from "react-router-dom";
 import { LoginInterface, LoginSchema } from "../../utils/schema";
-import { useContext, useState } from "react";
-import { AuthContext } from "../../utils/AuthProvider";
+import { useState } from "react";
 import Alert from "../../components/Alert";
 import { login } from "../../utils/auth";
 
 
 const LoginPage = () => {
-    const context = useContext(AuthContext);
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
+    const [correctDetails, setCorrectDetails] = useState(false);
 
 
     const handleSubmit = async(values: LoginInterface, { resetForm }: any) => {
         await login(values);
+        setShowAlert(true)
+        
         if (localStorage.getItem("token")){
-            navigate("/");
-            window.location.reload();
-        }else{
-            setShowAlert(true)
+            setCorrectDetails(true);
+            setTimeout(() => {
+                navigate("/");
+                window.location.reload();
+            }, 2000)
+            
         }
         resetForm();
-
     }
 
     const handleAlert = () => {
@@ -43,7 +45,7 @@ const LoginPage = () => {
                     {({ values, isSubmitting }) => (
                         <>
                             {showAlert &&
-                                    <Alert message={"Incorrect credentials"} colors={"bg-red-100 border border-red-400 text-red-700"} showAlert={showAlert} onClick={handleAlert}/>
+                                <Alert message={correctDetails ? "Logged in successfully" : "Incorrect details"} colors={correctDetails ? "bg-green-100 border border-green-400 text-green-700" : "bg-red-100 border border-red-400 text-red-700"} showAlert={showAlert} onClick={handleAlert}/>
                                 
                             }
                             <Form className=" flex flex-col space-y-6">

@@ -22,6 +22,7 @@ const AuthProvider = ({ children }: any) => {
                     role: role,
                     isAuthenticated: token ? true : false
                 });
+
             }else{
                 setContext({
                     user: "",
@@ -29,7 +30,6 @@ const AuthProvider = ({ children }: any) => {
                     isAuthenticated: token ? true : false,
                 });
             }
-            console.log(context)
         }
     }, []);
 

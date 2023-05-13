@@ -23,10 +23,26 @@ const JobModel = new Schema({
     },
     type: {
         type: String,
-        enum: ["remote", "on-site"],
-        default: "on-site"
+        enum: ["Remote", "In Person", "Hybrid"],
+        default: "In Person"
     },
     company: String,
+    min: {
+        type: Number,
+        index: true,
+        require: true
+    },
+    max: Number,
+    currency: {
+        type: String,
+        index: true,
+        require: true
+    },
+    frequency: {
+        type: String,
+        index: true,
+        require: true
+    },
     recruiter: {
         type: Schema.Types.ObjectId,
         ref: "User"

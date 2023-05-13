@@ -17,10 +17,11 @@ const login = async (data: LoginInterface) => {
 
 const signup = async (data: SignUpInterface) => {
     try{
-        const response = await api.post("/auth/signup", data);
+        const response = await api.post("/auth/register", data);
         return response.data;
-    }catch(error){
+    }catch(error: any){
         console.log(error);
+        
     }
 }
 

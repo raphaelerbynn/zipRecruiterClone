@@ -15,7 +15,13 @@ const jobSchema = yup.object().shape({
     location: yup.string().required(),
     experience: yup.number().notRequired(),
     type: yup.string().required("Job type required"),
-    company: yup.string().required()
+    company: yup.string().required(),
+
+    min: yup.number().min(1).notRequired(),
+    max: yup.number().notRequired(),
+    currency: yup.string().notRequired(),
+    frequency: yup.string().notRequired()
+    
 });
 
 const applicationSchema = yup.object().shape({
@@ -25,9 +31,9 @@ const applicationSchema = yup.object().shape({
 });
 
 const userRegisterSchema = yup.object().shape({
-    fullName: yup.string().required(),
+    name: yup.string().required(),
     email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
+    password: yup.string().min(5).required(),
     role: yup.string().required()
 });
 

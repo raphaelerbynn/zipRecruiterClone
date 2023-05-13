@@ -1,7 +1,9 @@
-import { useState } from "react"
+
 
 const Alert = ({ message, colors, showAlert, onClick }: any) => {
     
+    
+
   return (
     <>
         { showAlert && 

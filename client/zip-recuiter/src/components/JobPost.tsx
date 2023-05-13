@@ -1,51 +1,40 @@
+import { JobInterface, SalaryInterface } from "../utils/schema";
 
 
-const JobPost = () => {
+const JobPost = (props: JobInterface & SalaryInterface) => {
 
-    const job = {
-        title: "Accountant",
-        description: "Essay of description",
-        location: "Accra",
-        experience: 3,
-        type: "Remote",
-        company: "Lalaala Mint",
-        salary: {
-            min: 1000,
-            max: 1200,
-            currency: "GHc",
-            frequency: "monthly"
-        }
-    }
 
     return (
-        <div className="text-sm text-left w-2/5 shadow bg-white rounded-md m-6">
+        <div className="text-sm text-left shadow bg-white rounded-md m-6">
             <div className=" p-6 space-y-3">
-                <div className=" font-semibold text-xl">{job.title}</div>
+                <div className=" font-semibold text-xl">{props.title}</div>
                 <div>
-                    <div>{job.company},</div>
-                    <div>{job.location}</div>
+                    <div>{props.company},</div>
+                    <div>{props.location}</div>
                 </div>
                 <div className=" bg-sky-200 w-max py-1 px-3 rounded">
-                    <div>{job.type}</div>
+                    <div>{props.type}</div>
                 </div>
                 <div>
                     <div>
-                        {job.salary.max === null || job.salary.max > 0 ? (
+                        {props.max === null || props.max <= props.min ? (
                             <>
-                                {job.salary.currency}{job.salary.min} {job.salary.frequency}
+                                {props.currency}{props.min} {props.frequency}
                             </>
                         ) : (
                             <>
-                                {job.salary.currency}{job.salary.min} to {job.salary.currency}{job.salary.max} {job.salary.frequency}
+                                {props.currency}{props.min} to {props.currency}{props.max} {props.frequency}
                             </>
                         )}
                     </div>
                 </div>
                 <div>
                     <span className=" font-medium">Experience: </span>
-                    {job.experience}year(s) or more
+                    {props.experience}year(s) or more
                 </div>
-                <div>{job.description}</div>
+                <div>
+                    <p className=" whitespace-pre-wrap">{props.description}</p>
+                </div>
             </div>
             <hr />
             <div className=" flex justify-center p-3">
