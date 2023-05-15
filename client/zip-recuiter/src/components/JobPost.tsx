@@ -1,8 +1,16 @@
+import { useContext } from "react";
 import { JobInterface, SalaryInterface } from "../utils/schema";
+import { AuthContext } from "../utils/AuthProvider";
+import { useAppDispatch } from "../redux/store";
+import { deleteJob } from "../redux/actions/jobAction";
 
+interface JobProps extends JobInterface, SalaryInterface{
+    onClickUpdate: () => void
+}
 
-const JobPost = (props: JobInterface & SalaryInterface) => {
-
+const JobPost = (props: JobProps) => {
+    const context: any = useContext(AuthContext);
+    const dispatch = useAppDispatch();
 
     return (
         <div className="text-sm text-left shadow bg-white rounded-md m-6">
@@ -37,9 +45,17 @@ const JobPost = (props: JobInterface & SalaryInterface) => {
                 </div>
             </div>
             <hr />
-            <div className=" flex justify-center p-3">
-                <button className=" px-5 py-1 bg-emerald-700 text-slate-50 font-semibold rounded-full hover:bg-emerald-900">Apply Now</button>
-            </div>
+            { context.role === "recruiter" ? (
+                <div className=" flex justify-center p-3 space-x-2">
+                    <button onClick={props.onClickUpdate} className=" px-5 py-1 bg-blue-500 text-slate-50 font-semibold rounded-full hover:bg-blue-700">Update</button>
+                    <button onClick={() => dispatch(deleteJob(props._id))} className=" px-5 py-1 bg-red-500 text-slate-50 font-semibold rounded-full hover:bg-red-700">Delete</button>
+                </div>
+            ) : (
+                 <div className=" flex justify-center p-3">
+                    <button className=" px-5 py-1 bg-emerald-700 text-slate-50 font-semibold rounded-full hover:bg-emerald-900">Apply Now</button>
+                </div>
+            )}
+           
         </div>
     );
 }

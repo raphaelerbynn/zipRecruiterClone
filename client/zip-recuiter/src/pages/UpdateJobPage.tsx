@@ -1,41 +1,49 @@
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import AppLogo from "../components/AppLogo";
 import { PostInterface, PostJobSchema, SalaryInterface } from "../utils/schema";
-import { postJob } from "../redux/actions/jobAction";
+import { postJob, updateJob } from "../redux/actions/jobAction";
 import { useAppDispatch } from "../redux/store";
 import {  useState } from "react";
 import Alert from "../components/Alert";
 import { useNavigate } from "react-router-dom";
+import { jobClicked } from "../components/RecruiterJobs";
 
 const getCurSymbol = (locale: string, curCode: string) => {
     return new Intl.NumberFormat(locale, {style: "currency", currency: `${curCode}`}).formatToParts()[0].value;
   }
-  
-const PostPage = () => {
+
+const UpdateJobPage = () => {
     const [showAlert, setShowAlert] = useState(false);
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    const post: PostInterface & SalaryInterface = {
-        title: "",
-        description: "",
-        location: "",
-        experience: 0,
-        type: "In Person",
-        company: "",
+    // const post: PostInterface & SalaryInterface = {
+    //     title: "",
+    //     description: "",
+    //     location: "",
+    //     experience: 0,
+    //     type: "In Person",
+    //     company: "",
 
-        min: 0,
-        max: 0,
-        currency: getCurSymbol("en-US", "USD"),
-        frequency: "daily"
+    //     min: 0,
+    //     max: 0,
+    //     currency: getCurSymbol("en-US", "USD"),
+    //     frequency: "daily"
         
-    };
+    // };
+    const job = jobClicked;
 
-    const handlePostJob =  (values: PostInterface, { resetForm }: any) => {
+    const handleUpdateJob =  (values: PostInterface&SalaryInterface, { resetForm }: any) => {
         setShowAlert(true)
         window.scrollTo({top: 0})
+        const updatedData = {
+            recruiter: job.recruiter,
+            ...values,
+            _id: job._id
+        }
+
         try{
-            dispatch(postJob(values));
+            dispatch(updateJob(updatedData));
             resetForm();
             setTimeout(()=>{
                 navigate("/");
@@ -53,7 +61,7 @@ const PostPage = () => {
     return (
         <>
         {showAlert &&
-            <Alert message={"Job posted successfully"} colors={"bg-green-100 border border-green-400 text-green-700"} showAlert={showAlert} onClick={handleAlert}/>
+            <Alert message={"Job updated successfully"} colors={"bg-green-100 border border-green-400 text-green-700"} showAlert={showAlert} onClick={handleAlert}/>
                         
         }
         <div className=" px-12 pb-14 pt-8">
@@ -61,13 +69,13 @@ const PostPage = () => {
             <div className=" flex flex-col items-center space-y-6 mb-4">
 
                 <AppLogo />
-                <p className=" font-semibold text-emerald-600 text-2xl">Form to Post a job</p>
+                <p className=" font-semibold text-emerald-600 text-2xl">Form to update a job</p>
             </div>
             <div className=" px-32">
                 <Formik 
-                    initialValues={post}
+                    initialValues={job}
                     validationSchema={PostJobSchema}
-                    onSubmit={handlePostJob}
+                    onSubmit={handleUpdateJob}
                 >
                         <Form className=" outline outline-1 outline-gray-100 rounded-md shadow-lg px-8 py-10 text-sm text-left space-y-5">
                             <div>
@@ -139,7 +147,7 @@ const PostPage = () => {
                             </div>
                             <h6 className=" text-xs">By clicking Post & Continue, I agree that, this will be available to people looking for job</h6>
                             <div>
-                                <button type="submit" className=" bg-emerald-700 text-slate-50 font-semibold py-2 px-6 rounded-full hover:bg-emerald-900">Post & Continue</button>
+                                <button type="submit" className=" bg-sky-700 text-slate-50 font-semibold py-2 px-6 rounded-full hover:bg-sky-900">Update Job</button>
                             </div>
                         </Form>
                 </Formik>
@@ -149,4 +157,4 @@ const PostPage = () => {
     )
   }
 
-  export default PostPage;
+  export default UpdateJobPage;

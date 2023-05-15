@@ -50,6 +50,7 @@ export interface JobInterface{
     experience: number | null;
     type: string;
     company: string | null;
+    recruiter: string;
 }
 
 

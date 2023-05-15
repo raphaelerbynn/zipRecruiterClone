@@ -22,6 +22,17 @@ const jobsSlice = createSlice({
             state.status = "failed";
             state.error = action.payload;
         },
+
+        deleteJobSuccess(state, action: PayloadAction<string>){
+            state.status = "succeeded";
+            state.data = state.data.filter((job: JobInterface) => job._id !== action.payload)
+        },
+
+        deleteJobFailure(state, action: PayloadAction<string>){
+            state.status = "failed";
+            state.error = action.payload;
+        },
+
         postJobSuccess(state, action: PayloadAction<JobInterface&SalaryInterface>) {
             state.status = "succeeded";
             state.data.push(action.payload);
@@ -30,9 +41,22 @@ const jobsSlice = createSlice({
             state.status = "failed";
             state.error = action.payload;
         },
+        
+        updateJobSuccess(state, action: PayloadAction<JobInterface&SalaryInterface>) {
+            state.status = "succeeded";
+            const jobIndex = state.data.findIndex(job => job._id === action.payload._id);
+            if (jobIndex >= 0){
+                state.data[jobIndex] = action.payload;
+            }
+        },
+        updateJobFailure(state, action: PayloadAction<string>) {
+            state.status = "failed";
+            state.error = action.payload;
+        },
+        
     }
 })
 
 
-export const { getJobsStart, getJobsSuccess, getJobsFailure, postJobSuccess, postJobFailure } = jobsSlice.actions;
+export const { getJobsStart, getJobsSuccess, getJobsFailure, postJobSuccess, postJobFailure, deleteJobSuccess, deleteJobFailure, updateJobSuccess, updateJobFailure } = jobsSlice.actions;
 export default jobsSlice;
