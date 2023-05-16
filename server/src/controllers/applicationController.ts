@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { _createApplication, _deleteApplication, _getAllApplications, _getMyApplication, _getOneApplication, _getOneJob, _updateApplication } from "../services";
-
+import multer from "multer";
 
 const getApplications = async (req: Request, res: Response, next: NextFunction) => {
     const jobId = req.params.job_id;
@@ -59,11 +59,14 @@ const getOneApplication = async (req: Request, res: Response, next: NextFunction
     }
 }
 
+
 const apply = async (req: Request, res: Response, next: NextFunction) => {
     const jobId = req.params.job_id;
     const user: any = req.params.user;
+    const {resume, coverLetter}: any = req.files;
     const applicationData = {
-        ...req.body,
+        resume: resume[0].filename,
+        coverLetter: coverLetter[0].filename,
         job: jobId,
         candidate: user._id
     }

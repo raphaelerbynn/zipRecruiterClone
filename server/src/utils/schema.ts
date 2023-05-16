@@ -25,8 +25,8 @@ const jobSchema = yup.object().shape({
 });
 
 const applicationSchema = yup.object().shape({
-    coverLetter: yup.string().required(),
-    resume: yup.string().required(),
+    coverLetter: yup.mixed().required(),
+    resume: yup.mixed().required(),
     status: yup.string().notRequired()
 });
 

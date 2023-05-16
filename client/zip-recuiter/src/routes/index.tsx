@@ -10,6 +10,8 @@ import RecruiterJobs from "../components/RecruiterJobs";
 import { useContext } from "react";
 import { AuthContext } from "../utils/AuthProvider";
 import UpdateJobPage from "../pages/UpdateJobPage";
+import UploadFilesPage from "../pages/UploadFilesPage";
+import Applications from "../components/Applications";
 
 
 const Routes = () => {
@@ -43,7 +45,11 @@ const Routes = () => {
             children: [
               {
                   path: 'my-jobs',
-                  element: <RecruiterJobs />,
+                  element: context.role !== "recruiter" ? <Navigate to="/dashboard" /> : <RecruiterJobs />,
+              },
+              {
+                  path: 'applications',
+                  element: <Applications />,
               },
               
             ]
@@ -51,7 +57,11 @@ const Routes = () => {
           {
             path: '/update-job',
             element: <UpdateJobPage />
-          }
+          },
+          {
+            path: '/application-files',
+            element: <UploadFilesPage />
+          },
         ]
       }
     ]);

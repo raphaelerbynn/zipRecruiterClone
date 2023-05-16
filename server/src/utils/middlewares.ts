@@ -1,6 +1,7 @@
 import { NextFunction, Request, RequestHandler, Response, request } from "express";
 import { AuthRequest, applicationSchema, jobSchema, salarySchema, userLoginSchema, userRegisterSchema } from "./schema";
 import jwt from "jsonwebtoken";
+import multer from "multer";
 
 
 const validateUserLoginData = async (req: Request, res: Response, next: NextFunction ) => {
@@ -23,7 +24,7 @@ const validateUserRegisterData = async (req: Request, res: Response, next: NextF
 
 const validateApplicationData = async (req: Request, res: Response, next: NextFunction ) => {
     try{
-        await applicationSchema.validate(req.body);
+        await applicationSchema.validate(req.files);
         next();
     }catch(err){
         next(err);
@@ -47,6 +48,21 @@ const validateSalaryData = async (req: Request, res: Response, next: NextFunctio
         next(err);
     }
 };
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        console.log(file);
+        cb(null, Date.now() + file.originalname);
+    }
+})
+const upload = multer({storage: storage});
+// const uploadFiles = (req: Request, res: Response, next: NextFunction ) => {
+//         upload.fields([{ name: 'resume' }, { name: 'coverLetter' }]);
+//         next();
+// }
 
 // const authenticateCandidate = async (req: Request, res: Response, next: NextFunction ) => {
     
@@ -115,5 +131,6 @@ export {
     validateSalaryData,
     undefinedEndpoint,
     // authenticateCandidate,
-    authenticateUser
+    authenticateUser,
+    upload
 }
