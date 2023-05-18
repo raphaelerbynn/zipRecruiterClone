@@ -2,11 +2,12 @@ import { Action, ThunkAction, configureStore } from "@reduxjs/toolkit"
 import jobsSlice from "./slice/jobsSlice";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import applicantsSlice from "./slice/applicantsSlice";
 
 const store = configureStore({
     reducer: {
         jobs: jobsSlice.reducer,
-
+        applicants: applicantsSlice.reducer,
     }
 })
 

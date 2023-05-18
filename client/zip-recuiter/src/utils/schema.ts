@@ -38,6 +38,7 @@ export interface ContextInterface{
 
 export interface JobState{
     data: (JobInterface&SalaryInterface)[],
+    filteredData: (JobInterface&SalaryInterface)[],
     status: "idle" | "loading" | "succeeded" | "failed";
     error: string | null
 }
@@ -51,6 +52,12 @@ export interface JobInterface{
     type: string;
     company: string | null;
     recruiter: string;
+}
+
+export interface SearchQueryInterface{
+    title: string;
+    location: string;
+    experience: number | string;
 }
 
 
@@ -80,3 +87,9 @@ export const PostJobSchema = yup.object().shape({
     currency: yup.string().notRequired(),
     frequency: yup.string().notRequired()
 });
+
+export const JobSearchSchema = yup.object().shape({
+    title: yup.string().notRequired(),
+    location: yup.string().notRequired(),
+    experience: yup.number().notRequired()
+})

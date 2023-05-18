@@ -1,7 +1,7 @@
-import { deleteJobFailure, deleteJobSuccess, getJobsFailure, getJobsStart, getJobsSuccess, postJobFailure, postJobSuccess, updateJobFailure, updateJobSuccess } from "../slice/jobsSlice";
+import { deleteJobFailure, deleteJobSuccess, getJobsFailure, getJobsStart, getJobsSuccess, postJobFailure, postJobSuccess, searchJobFailure, searchJobSuccess, updateJobFailure, updateJobSuccess } from "../slice/jobsSlice";
 import { api } from "../../utils/api";
 import { AppThunk } from "../store";
-import { JobInterface, PostInterface, SalaryInterface } from "../../utils/schema";
+import { JobInterface, PostInterface, SalaryInterface, SearchQueryInterface } from "../../utils/schema";
 
 
 const fetchJobs = (): AppThunk => async (dispatch) => {
@@ -35,22 +35,34 @@ const postJob = (data: PostInterface): AppThunk => async (dispatch) => {
     dispatch(postJobSuccess(response.data));
   } catch (error: any) {
     dispatch(postJobFailure(error.message));
-    console.log(error)
   }
 }
 
 const updateJob = (data: JobInterface&SalaryInterface): AppThunk => async (dispatch) => {
   console.log(data)
   try {
+
     const response = await api.put(`/jobs/${data._id}`, data);
     console.log(response)
     dispatch(updateJobSuccess(response.data));
+
   } catch (error: any) {
     dispatch(updateJobFailure(error.message));
-    console.log(error)
   }
 }
 
+
+const searchJob = (query: SearchQueryInterface): AppThunk => async (dispatch) => {
+  try {
+    
+    const response = await api.get(`/jobs/search?title=${query.title}&location=${query.location}&experience=${query.experience}`);
+    dispatch(searchJobSuccess(response.data));
+
+  } catch (error: any) {
+    dispatch(searchJobFailure(error.message))
+    console.log(error)
+  }
+}
 
 
 
@@ -58,6 +70,7 @@ export {
     fetchJobs,
     postJob,
     deleteJob,
-    updateJob
+    updateJob,
+    searchJob
 
 }

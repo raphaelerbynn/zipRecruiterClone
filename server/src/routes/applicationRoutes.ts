@@ -25,5 +25,7 @@ router.post("/", authenticateUser, upload.fields([{ name: "resume" }, { name: "c
 router.put("/:apply_id", authenticateUser, applicationController.updateApplication);
 router.delete("/:apply_id", authenticateUser, applicationController.deleteApplication);
 
+router.get('/download/:filename', applicationController.downloadFile);
+
 
 export default router;

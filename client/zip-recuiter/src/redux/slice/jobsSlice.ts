@@ -3,6 +3,7 @@ import { JobInterface, JobState, SalaryInterface } from "../../utils/schema";
 
 const initialState: JobState = {
     data: [],
+    filteredData: [],
     status: "idle",
     error: null,
 }
@@ -53,10 +54,24 @@ const jobsSlice = createSlice({
             state.status = "failed";
             state.error = action.payload;
         },
-        
+
+        searchJobSuccess(state, action: PayloadAction<(JobInterface&SalaryInterface)[]>) {
+            state.status = "succeeded";
+            state.filteredData = action.payload;
+        },
+        searchJobFailure(state, action: PayloadAction<string>){
+            state.status = "failed";
+            state.error = action.payload;
+        }
     }
 })
 
 
-export const { getJobsStart, getJobsSuccess, getJobsFailure, postJobSuccess, postJobFailure, deleteJobSuccess, deleteJobFailure, updateJobSuccess, updateJobFailure } = jobsSlice.actions;
+export const { 
+    getJobsStart, getJobsSuccess, getJobsFailure, 
+    postJobSuccess, postJobFailure, 
+    deleteJobSuccess, deleteJobFailure, 
+    updateJobSuccess, updateJobFailure, 
+    searchJobSuccess, searchJobFailure 
+} = jobsSlice.actions;
 export default jobsSlice;

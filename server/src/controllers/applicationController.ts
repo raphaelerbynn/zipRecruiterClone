@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { _createApplication, _deleteApplication, _getAllApplications, _getMyApplication, _getOneApplication, _getOneJob, _updateApplication } from "../services";
-import multer from "multer";
+import path from "path";
 
 const getApplications = async (req: Request, res: Response, next: NextFunction) => {
     const jobId = req.params.job_id;
@@ -173,10 +173,25 @@ const deleteApplication = async (req: Request, res: Response, next: NextFunction
     }
 }
 
+
+const downloadFile = (req: Request, res: Response, next: NextFunction) => {
+    const { filename } = req.params;
+    const filePath = path.join("uploads", filename);
+
+    res.download(filePath, err => {
+        if(err){
+            console.log(err);
+            res.status(404).json({ error: 'File not found' });
+        }
+    })
+}
+
+  
 export default {
     getApplications,
     apply,
     updateApplication,
     deleteApplication,
-    getOneApplication
+    getOneApplication,
+    downloadFile
 }

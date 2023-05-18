@@ -11,13 +11,13 @@ const CandidateOptions = () => {
         window.location.reload();
     }
 
-    const handleToJobs = () => {
-        navigate("/jobs");
+    const handleToApplications = () => {
+        navigate("/applications");
     }
 
     return (
         <>
-            <button onClick={handleToJobs} className=" outline outline-1 outline-gray-300 px-4 py-1 rounded-full hover:bg-gray-100 text-emerald-700 font-medium">Jobs</button>
+            <button onClick={handleToApplications} className=" outline outline-1 outline-gray-300 px-4 py-1 rounded-full hover:bg-gray-100 text-emerald-700 font-medium">My Applications</button>
             <button className=" hover:underline" onClick={handleLogout}>Logout</button>
         </>
     )

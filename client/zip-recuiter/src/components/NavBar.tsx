@@ -10,7 +10,7 @@ const NavBar = () => {
     const context: any = useContext(AuthContext);
 
     return (
-        <div className=" py-4 px-8 shadow-md w-full flex justify-between top-0 sticky bg-slate-50">
+        <div className=" py-4 px-8 mb-12 shadow-md w-full flex justify-between top-0 fixed bg-slate-50">
             <div>
                 <AppLogo />
             </div>

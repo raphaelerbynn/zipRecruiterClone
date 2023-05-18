@@ -18,7 +18,6 @@ const _getJobBySearch = async (query: any) => {
       querySearch.experience = query.experience;
     }
 
-
     return await Job.find({
         $and: [querySearch]
     }).populate("recruiter");

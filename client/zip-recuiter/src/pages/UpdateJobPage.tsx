@@ -1,12 +1,12 @@
 import { Form, Formik, Field, ErrorMessage } from "formik";
 import AppLogo from "../components/AppLogo";
 import { PostInterface, PostJobSchema, SalaryInterface } from "../utils/schema";
-import { postJob, updateJob } from "../redux/actions/jobAction";
+import { updateJob } from "../redux/actions/jobAction";
 import { useAppDispatch } from "../redux/store";
 import {  useState } from "react";
 import Alert from "../components/Alert";
 import { useNavigate } from "react-router-dom";
-import { jobClicked } from "../components/RecruiterJobs";
+import { jobClicked } from "../components/JobPost";
 
 const getCurSymbol = (locale: string, curCode: string) => {
     return new Intl.NumberFormat(locale, {style: "currency", currency: `${curCode}`}).formatToParts()[0].value;
@@ -17,20 +17,6 @@ const UpdateJobPage = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    // const post: PostInterface & SalaryInterface = {
-    //     title: "",
-    //     description: "",
-    //     location: "",
-    //     experience: 0,
-    //     type: "In Person",
-    //     company: "",
-
-    //     min: 0,
-    //     max: 0,
-    //     currency: getCurSymbol("en-US", "USD"),
-    //     frequency: "daily"
-        
-    // };
     const job = jobClicked;
 
     const handleUpdateJob =  (values: PostInterface&SalaryInterface, { resetForm }: any) => {

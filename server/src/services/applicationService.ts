@@ -3,8 +3,8 @@ import { Application } from "../models";
 
 const _getAllApplications = async (job_id: string) => {
     return await Application.find({ job: job_id }).populate(
-        "job"
-    );
+        ["job", "candidate"]
+    )
 };
 
 const _getOneApplication = async (application_id: string) => {

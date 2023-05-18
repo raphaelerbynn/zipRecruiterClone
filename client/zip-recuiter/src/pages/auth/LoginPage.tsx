@@ -4,6 +4,7 @@ import { LoginInterface, LoginSchema } from "../../utils/schema";
 import { useState } from "react";
 import Alert from "../../components/Alert";
 import { login } from "../../utils/auth";
+import AppLogo from "../../components/AppLogo";
 
 
 const LoginPage = () => {
@@ -33,7 +34,8 @@ const LoginPage = () => {
 
     return (
 
-        <div className=" flex justify-center items-center h-screen">
+        <div className=" flex flex-col justify-center items-center h-screen ">
+            <AppLogo />
             <div className=" shadow-lg rounded text-center h-5/6 bg-white flex flex-col justify-center p-7 space-y-3">
                 <h1 className=" text-4xl">LOGIN</h1>
                 

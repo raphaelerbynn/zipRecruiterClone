@@ -12,6 +12,7 @@ import { AuthContext } from "../utils/AuthProvider";
 import UpdateJobPage from "../pages/UpdateJobPage";
 import UploadFilesPage from "../pages/UploadFilesPage";
 import Applications from "../components/Applications";
+import CandidateList from "../components/CandidateList";
 
 
 const Routes = () => {
@@ -30,7 +31,7 @@ const Routes = () => {
       },
       {
         path: '/jobs',
-        element: <JobsPage />
+        element: <JobsPage />,
       },
       {
         element: <Guard />,
@@ -51,7 +52,14 @@ const Routes = () => {
                   path: 'applications',
                   element: <Applications />,
               },
-              
+              {
+                path: 'shortlisted-candidates',
+                element: <CandidateList />
+              },
+              {
+                path: ':job_id/candidates',
+                element: <CandidateList />
+              }
             ]
           },
           {
@@ -59,9 +67,9 @@ const Routes = () => {
             element: <UpdateJobPage />
           },
           {
-            path: '/application-files',
+            path: "/:job_id/apply-job",
             element: <UploadFilesPage />
-          },
+          }
         ]
       }
     ]);

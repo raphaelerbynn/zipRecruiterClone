@@ -34,6 +34,7 @@ const SignUpPage = () => {
     
     return (
         <div className=" flex h-screen">
+            
             <SignUpQuestion question="Let's get you into the system" />
 
             <div className=" flex-1 flex flex-col items-center justify-center bg-white relative">

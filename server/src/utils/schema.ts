@@ -9,6 +9,8 @@ interface AuthRequest extends Request{
     };
 }
 
+
+
 const jobSchema = yup.object().shape({
     title: yup.string().required(),
     description: yup.string().required(),
@@ -57,5 +59,5 @@ export {
     userRegisterSchema,
     userLoginSchema,
     salarySchema,
-    AuthRequest
+    AuthRequest,
 }
