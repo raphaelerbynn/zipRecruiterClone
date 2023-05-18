@@ -8,7 +8,7 @@ const Alert = ({ message, colors, showAlert, onClick }: any) => {
     <>
         { showAlert && 
             <div
-            className={` ${colors} px-4 py-3 rounded flex justify-between space-x-24 shadow-lg text-sm absolute top-4 w-auto m-auto `}
+            className={` ${colors ? colors : " bg-sky-300"} z-50 fixed px-4 py-3 rounded flex justify-between space-x-24 shadow-lg text-sm top-6 left-1/2 -translate-x-1/2 w-auto m-auto `}
             role="alert"
             >
                 <span className="block sm:inline">{message}</span>

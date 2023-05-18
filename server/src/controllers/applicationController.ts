@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
-import { _createApplication, _deleteApplication, _getAllApplications, _getMyApplication, _getOneApplication, _getOneJob, _updateApplication } from "../services";
+import { _createApplication, _deleteApplication, _getAllApplications, _getAllApplicationsForCandidate, _getAllApplicationsForRecruiter, _getMyApplication, _getOneApplication, _getOneJob, _updateApplication } from "../services";
 import path from "path";
+import fs from "fs";
 
 const getApplications = async (req: Request, res: Response, next: NextFunction) => {
     const jobId = req.params.job_id;
@@ -23,6 +24,44 @@ const getApplications = async (req: Request, res: Response, next: NextFunction) 
             }
             applications = await _getAllApplications(jobId);
             res.json(applications);
+        }
+        
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+const getAllApplicationsForCandidate = async (req: Request, res: Response, next: NextFunction) => {
+    const user: any = req.params.user;
+    try {
+        let applications;
+        if (user.role === "candidate"){
+            applications = await _getAllApplicationsForCandidate(user._id);
+            res.json(applications);
+        }
+        else{
+            res.status(409);
+            throw Error("Unauthorized");
+        }
+        
+
+    } catch (err) {
+        next(err);
+    }
+}
+
+const getAllApplicationsForRecruiter = async (req: Request, res: Response, next: NextFunction) => {
+    const user: any = req.params.user;
+    try {
+        let applications;
+        if (user.role === "recruiter"){
+            applications = await _getAllApplicationsForRecruiter(user._id);
+            res.json(applications);
+        }
+        else{
+            res.status(409);
+            throw Error("Unauthorized");
         }
         
 
@@ -144,29 +183,36 @@ const updateApplication = async (req: Request, res: Response, next: NextFunction
 
 const deleteApplication = async (req: Request, res: Response, next: NextFunction) => {
     const applicationId = req.params.apply_id;
-    const jobId = req.params.job_id;
     const user: any = req.params.user;
 
     try {
-        const job = await _getOneJob(jobId);
-        if(!job){
-            res.status(404);
-            throw Error("Job not found");
-        }
-
         const application = await _getOneApplication(applicationId);
         if(!application){
             res.status(404);
             throw Error("Application not found");
         }
 
-        console.log(typeof user._id)
+        //console.log(typeof user._id)
         if (user.role !== "candidate" && user._id !== String(application.candidate)){
             res.status(403);
             throw Error("User not authorized");
         }
 
+        const resumePath = path.join("uploads", application.resume as string);
+        const coverLetterPath = path.join("uploads", application.coverLetter as string);
+        fs.unlink(resumePath, err => {
+            if(err){
+                console.log(err)
+            }
+        })
+        fs.unlink(coverLetterPath, err => {
+            if(err){
+                console.log(err)
+            }
+        })
+
         await _deleteApplication(applicationId);
+
         res.status(200).send("Application deleted");
     } catch (err) {
         next(err);
@@ -193,5 +239,7 @@ export default {
     updateApplication,
     deleteApplication,
     getOneApplication,
-    downloadFile
+    downloadFile,
+    getAllApplicationsForCandidate,
+    getAllApplicationsForRecruiter
 }

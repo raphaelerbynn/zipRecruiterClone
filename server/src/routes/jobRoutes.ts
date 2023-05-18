@@ -1,11 +1,14 @@
 import {Router} from "express";
-import { jobController } from "../controllers";
-import { authenticateUser, validateJobData, validateSalaryData } from "../utils";
+import { applicationController, jobController } from "../controllers";
+import { authenticateUser, validateJobData } from "../utils";
 import applyRouter from "./applicationRoutes";
 
 const router = Router();
 
 router.use("/:job_id/apply", applyRouter);
+router.get("/applications", authenticateUser, applicationController.getAllApplicationsForCandidate);
+router.get("/applicants", authenticateUser, applicationController.getAllApplicationsForRecruiter);
+router.delete("/applications/:apply_id", authenticateUser, applicationController.deleteApplication);
 
 router.get("/search", jobController.searchJob);
 

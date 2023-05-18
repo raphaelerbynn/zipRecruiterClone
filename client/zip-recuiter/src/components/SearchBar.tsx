@@ -2,27 +2,28 @@ import { Field, Form, Formik } from "formik";
 import { searchJob } from "../redux/actions/jobAction";
 import { JobSearchSchema, SearchQueryInterface } from "../utils/schema";
 import { useAppDispatch } from "../redux/store";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
+export let initialValues: SearchQueryInterface = {title: "", location: "", experience: ""}
 
 const SearchBar = () => {
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
 
     const handleSubmit = async (values: SearchQueryInterface) => {
+
         console.log(values)
         try{
-
             const response = dispatch(searchJob(values));
             console.log(response)
-
+            initialValues = values;
+            navigate("/jobs");
         }catch(error){
             console.log(error)
         }
+        
     }
 
-    
-
-    const initialValues: SearchQueryInterface = {title: "", location: "", experience: ""}
     return (
         <div className=" flex flex-col w-max shadow-xl border border-gray-200 px-10 py-6 space-y-4 rounded-md">
             <div className=" text-emerald-800 font-semibold text-lg">Search for your job here</div>

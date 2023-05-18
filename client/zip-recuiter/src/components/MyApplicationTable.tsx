@@ -1,12 +1,13 @@
-import { downloadFile } from "../utils/services";
+import { deleteApplication } from "../redux/actions/myApplicationsAction";
+import { useAppDispatch } from "../redux/store";
 
 
 const MyApplicationTable = ({ applications }: any) => {
-
+    const dispatch = useAppDispatch();
   
   return (
-    <div className="bg-white shadow-md rounded">
-      <table className=" divide-y divide-gray-200">
+    <div className="bg-white shadow-md rounded w-full">
+      <table className=" divide-y divide-gray-200 w-full">
         <thead className="bg-gray-50">
           <tr>
             <th className="py-3 px-3 text-left">Job Title</th>
@@ -20,33 +21,14 @@ const MyApplicationTable = ({ applications }: any) => {
             <tr key={application._id}>
               
               <td className="py-4 px-3">{application.job.title}</td>
-              {/* <td className="py-4 px-3">
-                <button onClick={() => downloadFile(candidate.coverLetter, candidate.job._id)} className="text-blue-500">
-                  {extractFilename(candidate.coverLetter)}
-                </button>
-              </td>
-              <td className="py-4 px-3">
-                <button onClick={() => downloadFile(candidate.resume, candidate.job._id)} className="text-blue-500">
-                    {extractFilename(candidate.resume)}
-                </button>
-              </td> */}
-              {/* <td className="py-4 px-3">
-                <select 
-                  onChange={(event) => handleChange(event, candidate._id)}
-                  value={selectedValues[candidate._id] || 'applied'}
-                  className={` outline-none rounded px-2 py-1 ${selectedValues[candidate._id] === "rejected" ? " bg-red-300" : selectedValues[candidate._id] === "shortlisted" ? " bg-green-300" : " bg-gray-300"}`}>
-                  <option value="applied" className=" bg-white">Applied</option>
-                  <option value="shortlisted" className=" bg-white">Shortlisted</option>
-                  <option value="rejected" className=" bg-white">Rejected</option>
-                </select>
-              </td> */}
+              
               <td className="py-4 px-3">
                 <div className={`outline-none rounded px-2 py-1 ${application.status === "rejected" ? " bg-red-300" : application.status === "shortlisted" ? " bg-green-300" : " bg-gray-300"}`}>
                     {application.status}
                 </div>
               </td>
               <td className="py-4 px-3">
-                <button className="text-red-500 px-1 m-1 rounded hover:bg-red-300 hover:text-black">
+                <button onClick={() => dispatch(deleteApplication(application._id))} className="text-red-500 px-1 m-1 rounded hover:bg-red-300 hover:text-black">
                   Delete
                 </button>
               </td>

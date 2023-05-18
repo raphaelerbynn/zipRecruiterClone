@@ -3,11 +3,13 @@ import jobsSlice from "./slice/jobsSlice";
 import { TypedUseSelectorHook, useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import applicantsSlice from "./slice/applicantsSlice";
+import applicationsSlice from "./slice/myApplicationsSlice";
 
 const store = configureStore({
     reducer: {
         jobs: jobsSlice.reducer,
         applicants: applicantsSlice.reducer,
+        applications: applicationsSlice.reducer,
     }
 })
 

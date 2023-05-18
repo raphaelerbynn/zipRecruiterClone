@@ -12,7 +12,7 @@ const CandidateOptions = () => {
     }
 
     const handleToApplications = () => {
-        navigate("/applications");
+        navigate("/my-applications");
     }
 
     return (

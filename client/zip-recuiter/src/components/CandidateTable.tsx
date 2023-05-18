@@ -75,9 +75,9 @@ const CandidateTable = ({ candidates }: any) => {
               <td className="py-4 px-3">
                 <select 
                   onChange={(event) => handleChange(event, candidate._id)}
-                  value={selectedValues[candidate._id] || 'applied'}
+                  value={selectedValues[candidate._id] || 'pending'}
                   className={` outline-none rounded px-2 py-1 ${selectedValues[candidate._id] === "rejected" ? " bg-red-300" : selectedValues[candidate._id] === "shortlisted" ? " bg-green-300" : " bg-gray-300"}`}>
-                  <option value="applied" className=" bg-white">Applied</option>
+                  <option value="pending" className=" bg-white">Pending</option>
                   <option value="shortlisted" className=" bg-white">Shortlisted</option>
                   <option value="rejected" className=" bg-white">Rejected</option>
                 </select>

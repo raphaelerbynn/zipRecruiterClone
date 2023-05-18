@@ -10,12 +10,9 @@ const CandidateList = () => {
     const dispatch = useAppDispatch();
     const job = jobClicked;
 
-    console.log("first")
-    console.log(candidates)
-
     useEffect(() => {
         dispatch(fetchApplicants(job._id));
-    }, [])
+    }, [dispatch, job._id])
   
     return (
       <div className=" space-y-3 p-6 flex flex-col items-center w-full">

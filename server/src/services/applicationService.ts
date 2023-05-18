@@ -7,6 +7,21 @@ const _getAllApplications = async (job_id: string) => {
     )
 };
 
+const _getAllApplicationsForCandidate = async (candidate_id: string) => {
+    return await Application.find({ candidate: candidate_id }).populate(
+        "job"
+    )
+};
+
+const _getAllApplicationsForRecruiter = async (recruiter_id: string) => {
+    return await Application.find().populate({
+        path: "job",
+        match: {
+            recruiter: recruiter_id
+        }   
+    }).populate("candidate")
+};
+
 const _getOneApplication = async (application_id: string) => {
     return await Application.findById(application_id);
 };
@@ -36,5 +51,7 @@ export {
     _getAllApplications,
     _updateApplication,
     _getOneApplication,
-    _getMyApplication
+    _getMyApplication,
+    _getAllApplicationsForCandidate,
+    _getAllApplicationsForRecruiter
 }

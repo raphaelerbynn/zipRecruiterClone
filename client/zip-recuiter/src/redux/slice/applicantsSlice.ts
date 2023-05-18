@@ -8,7 +8,7 @@ const initialState = {
 }
 
 const applicantsSlice = createSlice({
-    name: "jobs",
+    name: "applicants",
     initialState,
     reducers: {
         getApplicantsSuccess(state, action: PayloadAction<any>) {

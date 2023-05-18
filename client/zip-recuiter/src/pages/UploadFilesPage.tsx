@@ -1,42 +1,72 @@
 import { Formik, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import NavBar from "../components/NavBar";
 import { uploadFile } from "../utils/services";
 import { Navigate } from "react-router-dom";
 import { jobClicked } from "../components/JobPost";
+import { useState } from "react";
+import Alert from "../components/Alert";
+import { validationSchema } from "../utils/schema";
 
 const UploadFilesPage = () => {
-  const job = jobClicked;
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertInfo, setAlertInfo] = useState({
+      message: "",
+      color: ""
+    })
+    const job = jobClicked;
   const initialValues = {
     resume: "",
     coverLetter: "",
   };
 
-  const validationSchema = Yup.object().shape({
-    resume: Yup.mixed().required("Resume file is required"),
-    coverLetter: Yup.mixed().required("Cover letter file is required"),
-  });
+  
 
   const handleSubmits = async (values: any) => {
-    try {
-      console.log(values);
+    
       const response = await uploadFile(values, job._id);
-        console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+      console.log(response)
+        setShowAlert(true);
+        
+      if(response.response.status === 200){
+        setAlertInfo({
+          message: "Job successfully applied",
+          color: "bg-green-400"
+        })
+      }else if(response.response.status === 409){
+        setAlertInfo({
+          message: "Already applied",
+          color: "bg-red-400"
+        })
+      }else{
+        setAlertInfo({
+          message: "Error occured, try again later",
+          color: "bg-red-400"
+        })
+      }
+      
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 1500);
   };
 
   return (
     <>
+    
     { job ? (
     <div className=" h-screen flex flex-col">
       <NavBar />
+      <div className=" pt-14">
       <p className=" font-semibold text-emerald-600 text-2xl text-center pt-2 underline">
         Apply for this job
       </p>
         
       <div className="text-sm text-left shadow bg-white rounded-md m-6 mt-2">
+      {
+      showAlert &&
+      <Alert message={alertInfo.message} color={alertInfo.color} onClick={null} showAlert={showAlert}/>
+
+    }
         <div className=" p-6 space-y-3">
           <div className=" font-semibold text-xl">{job.title}</div>
           <div>
@@ -140,6 +170,7 @@ const UploadFilesPage = () => {
             )}
           </Formik>
         </div>
+      </div>
       </div>
     </div>
     ) : (

@@ -12,8 +12,8 @@ const ApplicationModel = new Schema({
     },
     status: {
         type: String,
-        enum: ["applied", "shortlisted", "rejected"],
-        default: "applied"
+        enum: ["pending", "shortlisted", "rejected"],
+        default: "pending"
     },
     candidate: {
         type: Schema.Types.ObjectId,

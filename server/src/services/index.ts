@@ -1,4 +1,4 @@
-import { _createApplication, _deleteApplication, _getAllApplications, _getOneApplication, _getMyApplication, _updateApplication } from "./applicationService";
+import { _createApplication, _deleteApplication, _getAllApplications, _getOneApplication, _getMyApplication, _updateApplication, _getAllApplicationsForCandidate, _getAllApplicationsForRecruiter } from "./applicationService";
 import { _createJob, _deleteJob, _getAllJobs, _getJobBySearch, _getOneJob, _updateJob } from "./jobService";
 import { _findUserByEmail, _createUser } from "./userServices";
 
@@ -17,5 +17,7 @@ export {
     _findUserByEmail,
     _createUser,
     _getMyApplication,
-    _getJobBySearch
+    _getJobBySearch,
+    _getAllApplicationsForCandidate,
+    _getAllApplicationsForRecruiter
 }

@@ -93,3 +93,8 @@ export const JobSearchSchema = yup.object().shape({
     location: yup.string().notRequired(),
     experience: yup.number().notRequired()
 })
+
+export const validationSchema = yup.object().shape({
+    resume: yup.mixed().required("Resume file is required"),
+    coverLetter: yup.mixed().required("Cover letter file is required"),
+  });

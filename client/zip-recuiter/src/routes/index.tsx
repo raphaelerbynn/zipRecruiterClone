@@ -11,8 +11,10 @@ import { useContext } from "react";
 import { AuthContext } from "../utils/AuthProvider";
 import UpdateJobPage from "../pages/UpdateJobPage";
 import UploadFilesPage from "../pages/UploadFilesPage";
-import Applications from "../components/Applications";
 import CandidateList from "../components/CandidateList";
+import MyApplicationsPage from "../pages/MyApplicationsPage";
+import ShortlistedCandidateList from "../components/ShortListedCandidate";
+import NotFoundPage from "../pages/NotFoundPage";
 
 
 const Routes = () => {
@@ -37,24 +39,24 @@ const Routes = () => {
         element: <Guard />,
         children: [
           {
+            path: "/my-applications",
+            element: <MyApplicationsPage />
+          },
+          {
             path: '/post',
             element: <PostPage />
           },
           {
             path: "/dashboard",
-            element: <Dashboard />,
+            element: context.role !== "recruiter" ? <Navigate to="/" /> : <Dashboard />,
             children: [
               {
                   path: 'my-jobs',
-                  element: context.role !== "recruiter" ? <Navigate to="/dashboard" /> : <RecruiterJobs />,
-              },
-              {
-                  path: 'applications',
-                  element: <Applications />,
+                  element: <RecruiterJobs />,
               },
               {
                 path: 'shortlisted-candidates',
-                element: <CandidateList />
+                element: <ShortlistedCandidateList />
               },
               {
                 path: ':job_id/candidates',
@@ -71,6 +73,10 @@ const Routes = () => {
             element: <UploadFilesPage />
           }
         ]
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />
       }
     ]);
 
