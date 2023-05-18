@@ -5,12 +5,20 @@ import { errorHandler } from "./utils";
 import "./config/database"
 import { dbConnect } from "./config";
 import cors from "cors";
+import dotenv from "dotenv"
 
+dotenv.config()
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT;
 
-app.use(cors());
+const corsOptions = {
+    origin: "http://localhost:3000",
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use("/api/auth", authRoute);

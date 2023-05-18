@@ -36,17 +36,7 @@ const RecruiterOptions = () => {
                 { showMenu &&
                     <div className=" absolute right-0 top-14 p-4 text-left text-sm bg-slate-50 shadow-xl m-2">
                         <ul className=" space-y-2">
-                            <li>
-                                <Link to="/login" >
-                                    Profile
-                                </Link>
-                            </li>
-                            <li className="">
-                                <Link to="/login" >
-                                    Jobs Applied
-                                </Link>
-                            </li>
-                            <li className=" bg-red-400 text-white rounded-full text-center hover:bg-red-500">
+                            <li className=" bg-red-400 text-white rounded-full text-center hover:bg-red-500 px-3 py-1">
                                 <Link to="/login" onClick={handleLogout}>
                                     Logout
                                 </Link>

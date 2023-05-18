@@ -2,11 +2,16 @@ import { NextFunction, Request, Response } from "express";
 import { _createUser, _findUserByEmail } from "../services";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config()
+
+const jwt_secret_key: string = process.env.JWT_SECRET_KEY || "";
 
 const register = async (req: Request, res: Response, next: NextFunction) => {
     const userData = req.body;
     try {
         const user = await _findUserByEmail(userData.email, userData.role);
+        console.log(user)
         if(user){
             res.status(409);
             throw Error("User already exists");
@@ -28,7 +33,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
     const userData = req.body;
     
     try {
-        
+        // console.log(userData)
         const user: any = await _findUserByEmail(userData.email, userData.role);
         if(!user){
             res.status(404);
@@ -50,7 +55,7 @@ const login = async (req: Request, res: Response, next: NextFunction) => {
             _id: user._id,
             role: user.role
         }
-        const token = await jwt.sign(payload, "my-secret-key");
+        const token = await jwt.sign(payload, jwt_secret_key);
         res.status(200).send({
             token: token
         });

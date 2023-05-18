@@ -94,7 +94,30 @@ export const JobSearchSchema = yup.object().shape({
     experience: yup.number().notRequired()
 })
 
+
+const getExtension = (filename: string) => {
+    return filename.slice(filename.lastIndexOf('.'));
+}
 export const validationSchema = yup.object().shape({
-    resume: yup.mixed().required("Resume file is required"),
-    coverLetter: yup.mixed().required("Cover letter file is required"),
+    resume: yup.mixed()
+    .test("fileSize", "File size is too large", (file: any) => {
+        const maxSize = 3 * 1024 * 1024;
+        return file.size <= maxSize;
+    })
+    .test("fileType", "Invalid file type", (file: any) => {
+        const extentions = ['.pdf', '.doc', '.docx', ".txt"];
+        return extentions.includes(getExtension(file.name).toLowerCase());
+    })
+    .required("Resume file is required"),
+    
+    coverLetter: yup.mixed()
+        .test("fileSize", "File size is too large", (file: any) => {
+            const maxSize = 3 * 1024 * 1024;
+            return file.size <= maxSize;
+        })
+        .test("fileType", "Invalid file type", (file: any) => {
+            const extentions = ['.pdf', '.doc', '.docx', ".txt"];
+            return extentions.includes(getExtension(file.name).toLowerCase());
+        })
+        .required("Cover letter file is required"),
   });

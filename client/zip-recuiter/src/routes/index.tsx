@@ -51,6 +51,10 @@ const Routes = () => {
             element: context.role !== "recruiter" ? <Navigate to="/" /> : <Dashboard />,
             children: [
               {
+                  path: '',
+                  element: <RecruiterJobs />,
+              },
+              {
                   path: 'my-jobs',
                   element: <RecruiterJobs />,
               },

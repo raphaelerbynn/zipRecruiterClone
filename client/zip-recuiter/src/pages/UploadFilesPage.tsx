@@ -46,6 +46,10 @@ const UploadFilesPage = () => {
     }, 1500);
   };
 
+  const handleAlert = () => {
+    setShowAlert(false);
+  }
+
   return (
     <>
       {job ? (
@@ -61,7 +65,7 @@ const UploadFilesPage = () => {
                 <Alert
                   message={alertInfo.message}
                   colors={alertInfo.color}
-                  onClick={null}
+                  onClick={handleAlert}
                   showAlert={showAlert}
                 />
               )}

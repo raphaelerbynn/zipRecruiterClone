@@ -9,7 +9,8 @@ const Guard = () => {
 
     return (
         <>
-            { (context.isAuthenticated ? <Outlet /> : <Navigate to="/login" />)}
+            { (context.isAuthenticated ? <Outlet /> : <Navigate to="/login" />)
+            }
         </>
     )
 }

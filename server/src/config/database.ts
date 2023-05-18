@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config()
 
-const uri = "mongodb://127.0.0.1:27017/";
-const database = "zipRecuiter"
+const uri = process.env.DATABASE_URI;
+const database = process.env.DATABASE_NAME;
 
 const dbConnect = mongoose.connect(`${uri}${database}`);
 
