@@ -44,7 +44,7 @@ const manageApplication = async (job_id: string, application_id: string, data: a
     return response.data;
 
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
 }
 

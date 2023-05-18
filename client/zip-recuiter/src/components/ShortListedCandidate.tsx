@@ -21,6 +21,11 @@ const ShortlistedCandidateList = () => {
     }
   }
 
+  const sendEmail = (applicant_mail: string) => {
+    window.location.href = `mailto:${applicant_mail}`;
+  };
+
+
   return (
     <div className=" space-y-3 p-6 flex flex-col items-center w-full">
       <h1 className=" font-semibold text-emerald-600 text-2xl text-center pt-2 underline">
@@ -70,7 +75,7 @@ const ShortlistedCandidateList = () => {
                 </td>
                 <td className="py-4 px-3">
                   <button
-                    onClick={() => (candidate._id)}
+                    onClick={() => sendEmail(candidate.candidate.email)}
                     className="text-blue-500 px-1 m-1 rounded hover:bg-sky-300 hover:text-black"
                   >
                     Send mail
