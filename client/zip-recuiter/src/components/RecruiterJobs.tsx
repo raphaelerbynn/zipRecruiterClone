@@ -11,7 +11,7 @@ const RecruiterJobs = () => {
     const context: any = useContext(AuthContext);
     const jobs = allJobs.filter(job => context.user === job.recruiter)
 
-    console.log(allJobs);
+    // console.log(allJobs);
 
     
     useEffect(() => {

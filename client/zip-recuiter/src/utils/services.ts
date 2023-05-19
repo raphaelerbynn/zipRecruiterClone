@@ -40,7 +40,7 @@ const manageApplication = async (job_id: string, application_id: string, data: a
   try {
     
     const response = await api.put(`/jobs/${job_id}/apply/${application_id}`, data);
-    console.log(response);
+    // console.log(response);
     return response.data;
 
   } catch (error) {

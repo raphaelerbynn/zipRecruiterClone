@@ -12,10 +12,10 @@ const SearchBar = () => {
 
     const handleSubmit = async (values: SearchQueryInterface) => {
 
-        console.log(values)
+        // console.log(values)
         try{
             const response = dispatch(searchJob(values));
-            console.log(response)
+            // console.log(response)
             initialValues = values;
             navigate("/jobs");
         }catch(error){

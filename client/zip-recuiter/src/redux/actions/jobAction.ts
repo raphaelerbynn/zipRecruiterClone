@@ -17,7 +17,7 @@ const fetchJobs = (): AppThunk => async (dispatch) => {
 const deleteJob = (job_id: string): AppThunk => async (dispatch) => {
   try {
     const response = await api.delete(`/jobs/${job_id}`);
-    console.log(response);
+    // console.log(response);
     dispatch(deleteJobSuccess(job_id));
   } catch (error: any) {
     dispatch(deleteJobFailure(error.message));
@@ -31,7 +31,7 @@ const deleteJob = (job_id: string): AppThunk => async (dispatch) => {
 const postJob = (data: PostInterface): AppThunk => async (dispatch) => {
   try {
     const response = await api.post("/jobs", data);
-    console.log(response)
+    // console.log(response)
     dispatch(postJobSuccess(response.data));
   } catch (error: any) {
     dispatch(postJobFailure(error.message));
@@ -39,11 +39,11 @@ const postJob = (data: PostInterface): AppThunk => async (dispatch) => {
 }
 
 const updateJob = (data: JobInterface&SalaryInterface): AppThunk => async (dispatch) => {
-  console.log(data)
+  // console.log(data)
   try {
 
     const response = await api.put(`/jobs/${data._id}`, data);
-    console.log(response)
+    // console.log(response)
     dispatch(updateJobSuccess(response.data));
 
   } catch (error: any) {

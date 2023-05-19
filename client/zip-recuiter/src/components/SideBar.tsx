@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 const SideBar = () => {
     const location = useLocation();
     const currentPath = location.pathname;
-    console.log(currentPath.includes("candidates"))
+    // console.log(currentPath.includes("candidates"))
     const [activeBtn, setActiveBtn] = useState(
         currentPath.includes("jobs") ? 
         "jobs" : 

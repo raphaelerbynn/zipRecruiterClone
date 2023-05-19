@@ -21,7 +21,7 @@ const UploadFilesPage = () => {
 
   const handleSubmits = async (values: any) => {
     const response = await uploadFile(values, job._id);
-    console.log(response);
+    // console.log(response);
     setShowAlert(true);
 
     setAlertInfo({
@@ -130,7 +130,7 @@ const UploadFilesPage = () => {
                               event.currentTarget.files &&
                                 event.currentTarget.files[0]
                             );
-                            console.log(event.currentTarget.files);
+                            // console.log(event.currentTarget.files);
                           }}
                         />
                         <ErrorMessage
