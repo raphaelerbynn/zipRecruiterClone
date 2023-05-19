@@ -5,8 +5,8 @@ import { useAppDispatch } from "../redux/store";
 import { deleteJob } from "../redux/actions/jobAction";
 import { useNavigate } from "react-router-dom";
 
-
-export let jobClicked: JobInterface & SalaryInterface = JSON.parse(localStorage.getItem("jobClicked") || "");
+const getStoreJob: string = localStorage.getItem("jobClicked") || "{}";
+export let jobClicked: JobInterface & SalaryInterface = JSON.parse(getStoreJob);
 
 const JobPost = (props: JobInterface & SalaryInterface) => {
     const context: any = useContext(AuthContext);
