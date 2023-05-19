@@ -11,10 +11,17 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [showAlert, setShowAlert] = useState(false);
     const [correctDetails, setCorrectDetails] = useState(false);
+    const [message, setMessage] = useState("");
 
 
-    const handleSubmit = async(values: LoginInterface, { resetForm }: any) => {
-        await login(values);
+    const handleSubmit = async (values: LoginInterface, { resetForm }: any) => {
+        const response: any = await login(values);
+        if(response.data){
+            setMessage("Logged in successfully");
+        }else{
+            setMessage(response.response.data.error.message);
+        }
+
         setShowAlert(true)
         
         if (localStorage.getItem("token")){
@@ -25,9 +32,12 @@ const LoginPage = () => {
             }, 2000)
             
         }
+
+        
         resetForm();
     }
 
+    // console.log(message)
     const handleAlert = () => {
         setShowAlert(false)
     }
@@ -47,7 +57,7 @@ const LoginPage = () => {
                     {({ values, isSubmitting }) => (
                         <>
                             {showAlert &&
-                                <Alert message={correctDetails ? "Logged in successfully" : "Incorrect details"} colors={correctDetails ? "bg-green-100 border border-green-400 text-green-700" : "bg-red-100 border border-red-400 text-red-700"} showAlert={showAlert} onClick={handleAlert}/>
+                                <Alert message={message} colors={correctDetails ? "bg-green-100 border border-green-400 text-green-700" : "bg-red-100 border border-red-400 text-red-700"} showAlert={showAlert} onClick={handleAlert}/>
                                 
                             }
                             <Form className=" flex flex-col space-y-6">

@@ -5,7 +5,6 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const Guard = () => {
     const context: any = useContext(AuthContext);
-    console.log(context)
 
     return (
         <>

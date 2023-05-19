@@ -1,0 +1,22 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const controllers_1 = require("../controllers");
+const utils_1 = require("../utils");
+const applicationRoutes_1 = __importDefault(require("./applicationRoutes"));
+const router = (0, express_1.Router)();
+router.use("/:job_id/apply", applicationRoutes_1.default);
+router.get("/applications", utils_1.authenticateUser, controllers_1.applicationController.getAllApplicationsForCandidate);
+router.get("/applicants", utils_1.authenticateUser, controllers_1.applicationController.getAllApplicationsForRecruiter);
+router.delete("/applications/:apply_id", utils_1.authenticateUser, controllers_1.applicationController.deleteApplication);
+router.get("/search", controllers_1.jobController.searchJob);
+router.get("/", controllers_1.jobController.getAllJobs);
+router.get("/:job_id", controllers_1.jobController.getOneJob);
+// router.post("/", validateJobData, jobController.createJob);
+router.post("/", utils_1.authenticateUser, utils_1.validateJobData, controllers_1.jobController.createJob);
+router.put("/:job_id", utils_1.authenticateUser, controllers_1.jobController.updateJob);
+router.delete("/:job_id", utils_1.authenticateUser, controllers_1.jobController.deleteJob);
+exports.default = router;

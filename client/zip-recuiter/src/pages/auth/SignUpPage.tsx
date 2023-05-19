@@ -11,17 +11,22 @@ import Alert from "../../components/Alert";
 const SignUpPage = () => {
     const [showAlert, setShowAlert] = useState(false);
     const [successful, setSuccessful] = useState(false);
+    const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
     const handleSubmit = async (values: SignUpInterface, { resetForm }: any) => {
         const response = await signup(values);
+
         setShowAlert(true);
-        if (response){
-            
+        if(response.data){
+            setMessage(response.data);
             setSuccessful(true);
+
             setTimeout(()=>{
                 navigate("/login");
-            }, 2000)
+            }, 1500)
+        }else{
+            setMessage(response.response.data.error.message);
         }
         resetForm();
         
@@ -47,7 +52,7 @@ const SignUpPage = () => {
                     {({ isSubmitting}) => (
                     <>
                         {showAlert &&
-                            <Alert message={successful ? "User registered successfully" : "Email already exist"} colors={successful ? "bg-green-100 border border-green-400 text-green-700" : "bg-red-100 border border-red-400 text-red-700"} showAlert={showAlert} onClick={handleAlert}/>
+                            <Alert message={message || "hi"} colors={successful ? "bg-green-100 border border-green-400 text-green-700" : "bg-red-100 border border-red-400 text-red-700"} showAlert={showAlert} onClick={handleAlert}/>
                         
                         }
                         <Form className=" flex flex-col space-y-6 w-full p-12">

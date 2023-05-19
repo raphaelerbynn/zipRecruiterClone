@@ -3,7 +3,7 @@ import { AuthRequest, applicationSchema, jobSchema, salarySchema, userLoginSchem
 import jwt from "jsonwebtoken";
 import multer from "multer";
 
-
+const jwt_secret_key: string = process.env.JWT_SECRET_KEY || "";
 const validateUserLoginData = async (req: Request, res: Response, next: NextFunction ) => {
     try{
         await userLoginSchema.validate(req.body);
@@ -107,7 +107,7 @@ const authenticateUser = async (req: Request, res: Response, next: NextFunction 
             throw Error("User not authorized");
         }
 
-        const user: any = jwt.verify(token, "my-secret-key");
+        const user: any = jwt.verify(token, jwt_secret_key);
         req.params.user = user;
         next();
     }catch(err){

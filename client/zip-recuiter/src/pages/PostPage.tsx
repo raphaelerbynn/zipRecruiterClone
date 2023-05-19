@@ -39,7 +39,7 @@ const PostPage = () => {
             resetForm();
             setTimeout(()=>{
                 navigate("/");
-            }, 2000)
+            }, 20000)
         }catch(err){
             console.log(err);
 
