@@ -41,3 +41,5 @@ dbConnect.then(() => {
     console.error(`Database not connected: ${err}`)
 });
 
+export default app;
+
