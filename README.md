@@ -2,6 +2,43 @@
 
 A job posting, job search platform and job application platform.
 
+
+## Features
+
+- Recruiters can register and log in to their accounts.
+- Recruiters can create, edit, and delete job postings.
+- Recruiters can view and manage applications received for their job postings.
+- Candidates can register and log in to their accounts.
+- Candidates can search for jobs based on location, experience or title.
+- Candidates can apply for jobs by submitting their resumes and cover letters.
+- Candidates can track the status of their applications.
+
+
+## How To Install And UUse
+
+1. Clone the project `git clone https://github.com/raphaelerbynn/zipRecruiterClone/`
+2. Navigate to the repo `cd ziprecruiter-clone`
+3. Install dependencies
+   - backend 
+     -- `cd server`
+     -- `npm install`
+   - frontend
+     -- `cd client/zip-recruiter`
+     -- `npm install`
+4. Configure environmental variables
+   - backend 
+     -- `DATABASE_NAME = database_name`
+     -- `DATABASE_URI = your_MongoDb_URI`
+     -- `JWT_SECRET_KEY = your_key`
+     -- `PORT = 5000`
+   - frontend
+     -- `REACT_APP_API_URL = the_api_base_URL`
+5. Run the backend `npm run start-ts`or `npm run build && npm start`
+6. Run the frontend `npm start`
+7. Open `http://localhost:3000` in your browser and access it
+
+
+
 ## API Documentation
 
 ### Base URL
