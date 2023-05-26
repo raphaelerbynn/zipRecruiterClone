@@ -1,9 +1,13 @@
 import NavBar from "../components/NavBar";
 import SearchBar from "../components/SearchBar";
 import homeBg from "../assets/imgs/homeBg.jpg";
+import { useContext } from "react";
+import { AuthContext } from "../utils/AuthProvider";
 
 
 const HomePage = () => {
+    const context = useContext(AuthContext)
+    console.log(context)
     return (
         <div className="  h-screen flex flex-col">
             <NavBar />
