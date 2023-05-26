@@ -10,14 +10,14 @@ router.get("/", authenticateUser, applicationController.getApplications);
 
 router.get("/:apply_id", authenticateUser, applicationController.getOneApplication)
 
-const uploadFolder = 'uploads/';
-if (!fs.existsSync(uploadFolder)) {
-  fs.mkdirSync(uploadFolder);
-  fs.chmodSync(uploadFolder, '755');
-}
+// const uploadFolder = 'uploads/';
+// if (!fs.existsSync(uploadFolder)) {
+//   fs.mkdirSync(uploadFolder);
+//   fs.chmodSync(uploadFolder, '755');
+// }
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, uploadFolder);
+        cb(null, 'uploads/');
     },
     filename: (req, file, cb) => {
         console.log(file);
