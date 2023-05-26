@@ -13,6 +13,7 @@ router.get("/:apply_id", authenticateUser, applicationController.getOneApplicati
 const uploadFolder = 'uploads/';
 if (!fs.existsSync(uploadFolder)) {
   fs.mkdirSync(uploadFolder);
+  fs.chmodSync(uploadFolder, '755');
 }
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
