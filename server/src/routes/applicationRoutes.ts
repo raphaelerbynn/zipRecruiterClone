@@ -2,6 +2,7 @@ import { Router } from "express";
 import { applicationController } from "../controllers";
 import { authenticateUser, validateApplicationData } from "../utils";
 import multer from "multer";
+import fs from "fs";
 
 const router = Router({ mergeParams: true });
 
@@ -9,9 +10,13 @@ router.get("/", authenticateUser, applicationController.getApplications);
 
 router.get("/:apply_id", authenticateUser, applicationController.getOneApplication)
 
+const uploadFolder = 'uploads/';
+if (!fs.existsSync(uploadFolder)) {
+  fs.mkdirSync(uploadFolder);
+}
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'uploads/');
+        cb(null, uploadFolder);
     },
     filename: (req, file, cb) => {
         console.log(file);
