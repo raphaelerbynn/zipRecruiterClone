@@ -9,12 +9,13 @@ const RecruiterJobs = () => {
     const allJobs = useAppSelector(state => state.jobs.data);
     const dispatch = useAppDispatch();
     const context: any = useContext(AuthContext);
-    const jobs = allJobs.filter(job => context.user === job.recruiter)
+    let jobs = allJobs.filter(job => context.user === job.recruiter)
 
     // console.log(allJobs);
 
     
     useEffect(() => {
+        
         return () => dispatch(fetchJobs());
     }, [dispatch]);
 
